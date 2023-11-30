@@ -1,0 +1,21 @@
+ <style>
+input[type="text"], input[type="email"], input[type="password"] {
+  width: 100%;
+  height: 20px;
+  background: white;
+  border: 1px solid lightgray;
+  margin: 5px 0px;
+  padding: 5px;}
+.html-form h3{
+  text-align: center;
+  font-size: 25px;
+  margin: 0px;
+  margin-bottom: 5px;
+  color: #015ba9;
+  border-bottom: 1px solid;
+  margin-bottom: 15px}
+#first-name-err, #last-name-err, #email-err, #mobile-number-err, #password-err, #confirm-password-err{
+  color:red;
+  font-size:13px;
+}
+</style> 

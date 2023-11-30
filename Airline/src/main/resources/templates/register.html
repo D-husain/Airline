@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+      <!-- 
+    More Templates Visit ==> ProBootstrap.com
+    Free Template by ProBootstrap.com under the License Creative Commons 3.0 ==> (probootstrap.com/license)
+
+    IMPORTANT: You can do whatever you want with this template but you need to keep the footer link back to ProBootstrap.com
+    -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Airline &mdash;</title>
+		<meta name="description" content="Free Bootstrap 4 Theme by ProBootstrap.com">
+		<meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+    
+    
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
+
+		<link rel="stylesheet" href="assets/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons/css/ionicons.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    
+    <link rel="stylesheet" href="assets/fonts/flaticon/font/flaticon.css">
+
+    <link rel="stylesheet" href="assets/fonts/fontawesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="assets/css/select2.css">
+    
+
+    <link rel="stylesheet" href="assets/css/helpers.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+	</head>
+	<body>
+  
+
+    <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
+      <div class="container">
+        <a class="navbar-brand" href="/">Airline</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
+          <span><i class="ion-navicon"></i></span>
+        </button>
+        <div class="collapse navbar-collapse" id="probootstrap-menu">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="services">Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact">Contact</a></li>
+			<li  class="nav-item active"><a class="nav-link" href="login"><i class="fa-solid fa-user"></i></a></li>
+          </ul>
+          
+        </div>
+      </div>
+    </nav>
+    <!-- END nav -->
+    
+
+    <section class="probootstrap-cover overflow-hidden relative"  style="background-image: url('assets/images/bg_1.jpg');" data-stellar-background-ratio="0.5" id="section-home">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row align-items-center text-center">
+          <div class="col-md">
+            <h2 class="heading mb-2 display-4 font-light probootstrap-animate">Register</h2>
+             
+            <p class="lead mb-5 probootstrap-animate">
+          </div> 
+        </div>
+      </div>
+    
+    </section>
+    <!-- END section -->
+    
+    
+    <section class="probootstrap_section bg-light" id="section-contact">
+      <div class="container">
+        
+        <div class="row">
+          <div class="col-md-12  probootstrap-animate">
+          <!-- Start error Message -->
+					<div th:if="${session.msg1}">
+						<div class="alert alert-danger" role="alert"
+							th:text="${session.msg1}"></div>
+						<th:block th:text="${#session.removeAttribute('msg1')}"></th:block>
+					</div>
+					<!-- End error Message -->
+			<form th:action="@{/register_user}" method="post" class="probootstrap-form probootstrap-form-box mb60">
+              <div class="row mb-3">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="name" class="sr-only sr-only-focusable">Name</label>
+                    <input type="text" onblur="checkname()" class="form-control" id="name" name="name" placeholder="Enter UserName">
+                    <span id='nameerr' class='text-danger'></span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="" class="sr-only sr-only-focusable">Email</label>
+                <input type="email" onblur="checkemail()" class="form-control" id="email" name="email"  placeholder="Enter Email">
+                <span id='emailerr' class='text-danger'></span>
+              </div>
+              <div class="form-group">
+                <label for="" class="sr-only sr-only-focusable">Contact</label>
+                <input type="tel" onblur="checkphone()" maxlength="10" class="form-control" id="phone" name="contact"  placeholder="Enter Contact">
+                <span id='phoneerr' class='text-danger'></span>
+              </div>
+              <div class="form-group">
+                <label for="password" class="sr-only sr-only-focusable">Password</label>
+                <input type="password" onblur="checkpassword()" class="form-control" id="password" name="password"  placeholder="Enter Password">
+                <span id='passeerr' class='text-danger'></span>
+              </div>
+              <div class="form-group">
+                <input type="submit" onclick='return checkvalidate()' class="btn btn-primary" id="submit" name="submit" value="Register">
+              </div>
+              <div class="text-center p-t-40">
+						<span class="txt1">
+							Already have an account?
+						</span>
+
+						<a class="txt2" href="/login">
+							Login
+						</a>
+					</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- END section -->
+
+    
+    <!-- END section -->
+  
+    <footer class="probootstrap_section probootstrap-border-top">
+      <div class="container">
+        <div class="row pt-5">
+          <div class="col-md-12 text-center">
+            <p class="probootstrap_font-14">&copy; 2017. All Rights Reserved. <br> Designed &amp; Developed by <a href="https://probootstrap.com/" target="_blank">ProBootstrap</a><small> (Don't remove credit link on this footer. See <a href="https://probootstrap.com/license/">license</a>)</small></p>
+            <p class="probootstrap_font-14">Demo Images: <a href="https://unsplash.com/" target="_blank">Unsplash</a></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    
+    <script src="assets/js/jquery.min.js"></script>
+    
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/jquery.easing.1.3.js"></script>
+
+    <script src="assets/js/select2.min.js"></script>
+
+    <script src="assets/js/main.js"></script>
+    
+    <script type="text/javascript">
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var phone = document.getElementById('phone').value;
+    var passw = document.getElementById('password').value;
+    function checkname(){
+    	var name = document.getElementById('name').value;
+    	var m = /^[a-z0-9_\.]+$/;
+    	if(name == ''){
+    		document.getElementById('nameerr').style.display = 'block';
+    		document.getElementById('nameerr').innerHTML = 'Please enter name';
+    	}
+    	else if(!name.match(m)){
+    		document.getElementById('nameerr').style.display = 'block';
+    		document.getElementById('nameerr').innerHTML = 'Invalid name';
+    	}
+    	else{
+    		document.getElementById('nameerr').style.display = 'none';
+    		document.getElementById('nameerr').innerHTML = '';
+    	}
+    }
+    function checkemail(){
+    	var email = document.getElementById('email').value;
+    	var e= /[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    	if(email == ''){
+    		document.getElementById('emailerr').style.display = 'block';
+    		document.getElementById('emailerr').innerHTML = 'Please enter email';
+    	}
+    	else if (!email.match(e)) {
+    		document.getElementById('emailerr').style.display = 'block';
+    		document.getElementById('emailerr').innerHTML = 'Invalid email';
+		}
+    	else{
+    		document.getElementById('emailerr').style.display = 'none';
+    		document.getElementById('emailerr').innerHTML = '';
+    	}
+    }
+    function checkphone(){
+    	var phone = document.getElementById('phone').value;
+    	var p= /^(0|91)?[6-9][0-9]{9}$/;
+    	if(phone == ''){
+    		document.getElementById('phoneerr').style.display = 'block';
+    		document.getElementById('phoneerr').innerHTML = 'Please enter number';
+    	}
+    	else if(!phone.match(p)){
+    		document.getElementById('phoneerr').style.display = 'block';
+    		document.getElementById('phoneerr').innerHTML = 'Invalid number';
+    	}
+    	else{
+    		document.getElementById('phoneerr').style.display = 'none';
+    		document.getElementById('phoneerr').innerHTML = '';
+    	}
+    }
+    function checkpassword(){
+    	var passw = document.getElementById('password').value;
+    	var pass=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    	if(passw == ''){
+    		document.getElementById('passeerr').style.display = 'block';
+    		document.getElementById('passeerr').innerHTML = 'Please enter Password';
+    	}
+    	else if(!passw.match(pass)){
+     		document.getElementById('passeerr').style.display = 'block';
+     		document.getElementById('passeerr').innerHTML = 'Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters';
+     	}
+    	else{
+    		document.getElementById('passeerr').style.display = 'none';
+    		document.getElementById('passeerr').innerHTML = '';
+    	}
+    }
+    function checkvalidate(){
+    	var name = document.getElementById('name').value;
+    	var email = document.getElementById('email').value;
+    	var phone = document.getElementById('phone').value;
+    	var passw = document.getElementById('password').value;
+    	
+
+	     var m =/^[a-z0-9_\.]+$/;
+	   	 var pass = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+	     var e = /[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	   	 var p = /^(0|91)?[6-9][0-9]{9}$/;
+        		 
+        if(name == "" && email == "" && phone == "" && passw == ""){
+    		document.getElementById('nameerr').style.display = 'block';
+    		document.getElementById('nameerr').innerHTML = 'Please enter name';
+    		document.getElementById('emailerr').style.display = 'block';
+    		document.getElementById('emailerr').innerHTML = 'Please enter email';
+    		document.getElementById('phoneerr').style.display = 'block';
+    		document.getElementById('phoneerr').innerHTML = 'Please enter phone';
+    		document.getElementById('passeerr').style.display = 'block';
+    		document.getElementById('passeerr').innerHTML = 'Please enter password';
+    		return false;
+    	}
+        else if(name == ""){
+        	document.getElementById('nameerr').style.display = 'block';
+    		document.getElementById('nameerr').innerHTML = 'Please enter name';
+    		document.getElementById('emailerr').style.display = 'none';
+    		document.getElementById('emailerr').innerHTML = '';
+    		document.getElementById('phoneerr').style.display = 'none';
+    		document.getElementById('phoneerr').innerHTML = '';
+    		document.getElementById('passeerr').style.display = 'none';
+    		document.getElementById('passeerr').innerHTML = '';
+    		return false;
+        }
+        else if(!name.match(m)){
+    		document.getElementById('nameerr').style.display = 'block';
+    		document.getElementById('nameerr').innerHTML = 'Invalid name';
+    		document.getElementById('emailerr').style.display = 'none';
+    		document.getElementById('emailerr').innerHTML = '';
+    		document.getElementById('phoneerr').style.display = 'none';
+    		document.getElementById('phoneerr').innerHTML = '';
+    		document.getElementById('passeerr').style.display = 'none';
+    		document.getElementById('passeerr').innerHTML = '';
+    		return false;
+    	}
+        else if(email == ""){
+        	document.getElementById('nameerr').style.display = 'none';
+    		document.getElementById('nameerr').innerHTML = '';
+    		document.getElementById('emailerr').style.display = 'block';
+    		document.getElementById('emailerr').innerHTML = 'Please enter email';
+    		document.getElementById('phoneerr').style.display = 'none';
+    		document.getElementById('phoneerr').innerHTML = '';
+    		document.getElementById('passeerr').style.display = 'none';
+    		document.getElementById('passeerr').innerHTML = '';
+    		return false;
+        }
+        else if(!email.match(e)){
+    		document.getElementById('nameerr').style.display = 'none';
+    		document.getElementById('nameerr').innerHTML = '';
+    		document.getElementById('emailerr').style.display = 'block';
+    		document.getElementById('emailerr').innerHTML = 'Invalid email';
+    		document.getElementById('phoneerr').style.display = 'none';
+    		document.getElementById('phoneerr').innerHTML = '';
+    		document.getElementById('passeerr').style.display = 'none';
+    		document.getElementById('passeerr').innerHTML = '';
+     		return false;
+     	}
+        else if(phone == ""){
+        	document.getElementById('nameerr').style.display = 'none';
+    		document.getElementById('nameerr').innerHTML = '';
+    		document.getElementById('emailerr').style.display = 'none';
+    		document.getElementById('emailerr').innerHTML = '';
+    		document.getElementById('phoneerr').style.display = 'block';
+    		document.getElementById('phoneerr').innerHTML = 'Please enter contact';
+    		document.getElementById('passeerr').style.display = 'none';
+    		document.getElementById('passeerr').innerHTML = '';
+    		return false;
+        }
+        else if(!phone.match(p)){
+    		document.getElementById('nameerr').style.display = 'none';
+    		document.getElementById('nameerr').innerHTML = '';
+    		document.getElementById('emailerr').style.display = 'none';
+    		document.getElementById('emailerr').innerHTML = '';
+    		document.getElementById('phoneerr').style.display = 'block';
+    		document.getElementById('phoneerr').innerHTML = 'Invalid number';
+    		document.getElementById('passeerr').style.display = 'none';
+    		document.getElementById('passeerr').innerHTML = '';
+     		return false;
+     	}
+        else if(passw == ""){
+        	document.getElementById('nameerr').style.display = 'none';
+    		document.getElementById('nameerr').innerHTML = '';
+    		document.getElementById('emailerr').style.display = 'none';
+    		document.getElementById('emailerr').innerHTML = '';
+    		document.getElementById('phoneerr').style.display = 'none';
+    		document.getElementById('phoneerr').innerHTML = '';
+    		document.getElementById('passeerr').style.display = 'block';
+    		document.getElementById('passeerr').innerHTML = 'Please enter password';
+    		return false;
+        }
+    	
+    	else if(!passw.match(pass)){
+    		document.getElementById('nameerr').style.display = 'none';
+    		document.getElementById('nameerr').innerHTML = '';
+    		document.getElementById('emailerr').style.display = 'none';
+    		document.getElementById('emailerr').innerHTML = '';
+    		document.getElementById('phoneerr').style.display = 'none';
+    		document.getElementById('phoneerr').innerHTML = '';
+    		document.getElementById('passeerr').style.display = 'block';
+    		document.getElementById('passeerr').innerHTML = 'Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters';
+     		return false;
+     	}
+    	
+    	
+    	else{
+    		return true;	
+    	}
+    	
+    }
+    //(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}
+    </script>
+    
+	</body>
+</html>

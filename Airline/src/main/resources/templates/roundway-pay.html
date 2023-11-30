@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- 
+    More Templates Visit ==> ProBootstrap.com
+    Free Template by ProBootstrap.com under the License Creative Commons 3.0 ==> (probootstrap.com/license)
+
+    IMPORTANT: You can do whatever you want with this template but you need to keep the footer link back to ProBootstrap.com
+    -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Airline &mdash;</title>
+    <meta name="description" content="Free Bootstrap 4 Theme by ProBootstrap.com">
+    <meta name="keywords"
+        content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+
+    <link rel="stylesheet" href="assets/fonts/flaticon/font/flaticon.css">
+
+    <link rel="stylesheet" href="assets/fonts/fontawesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="assets/css/select2.css">
+
+
+    <link rel="stylesheet" href="assets/css/helpers.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">Airline</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu"
+                aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <span><i class="ion-navicon"></i></span>
+            </button>
+            <div class="collapse navbar-collapse" id="probootstrap-menu">
+                <ul th:if="${session.login==null}" class="navbar-nav ml-auto">
+            <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="services">Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact">Contact</a></li>
+			<li  class="nav-item"><a class="nav-link" href="login"><i class="fa-solid fa-user"></i></a></li>
+          </ul>
+          
+          <ul th:if="${session.login}" class="navbar-nav ml-auto">
+            <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="services">Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact">Contact</a></li>
+           
+			<li  class="nav-item"><a class="nav-link" href="/user-logout">logout</a></li>
+          </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END nav -->
+
+
+    <section class="probootstrap-cover overflow-hidden relative"
+        style="background-image: url('assets/images/bg_1.jpg');" data-stellar-background-ratio="0.5" id="section-home">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-md">
+                    <h2 class="heading mb-2 display-4 font-light probootstrap-animate">Travel With Us</h2>
+                    <p class="lead mb-5 probootstrap-animate">
+
+
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- END section -->
+    <section>
+        <div class="container-fluid bg-light" id="progress-bar">
+            <div class="d-flex align-items-center justify-content-center px-5 pt-2" style="gap:5px">
+                <div class="single-progress d-flex align-items-center">
+                    <div class="circle-round blue-circle">
+                        &#10003;
+                    </div>
+                    <div class="single-progress-content1">
+                        Who's flying?
+                    </div>
+                </div>
+                <hr class="">
+                <div class="single-progress d-flex align-items-center">
+                    <div class="circle-round blue-circle">
+                        2
+                    </div>
+                    <div class="single-progress-content2">
+                        Check and pay
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container-fluid p-5">
+            <div class="px-3">
+                <p class="probootstrap_text-black m-0 p-0">Round-trip <span>&#x2022;</span> 1 traveler
+                    <span>&#x2022;</span> [[${passenger.day}]], Mar2 - Fri, Mar 3
+                </p>
+                <p class="probootstrap_font-30 m-0 p-0 font-weight-bold probootstrap_text-black"><span
+                        class="pline-height text-capitalize m-0 p-0">Ahmedabad</span> to <span
+                        class="text-capitalize">Mumbai</span></p>
+                <p class="probootstrap_font-20 m-0 p-0 font-weight-bold probootstrap_text-black">Check and pay</p>
+            </div>
+            <div class="row g-0 px-3">
+            
+                <div class="col-8">
+						<div class="border border-2 border-primary probootstrap_rounded-10 px-3 py-2">
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="d-flex">
+									<div>
+										<img
+											th:src="@{'../img/'+${passenger.fimg}}"
+											width="80" height="80" alt="">
+									</div>
+									<div>
+										<p
+											class="pline-height m-0 py-1 font-weight-bold probootstrap_text-black">[[${passenger.source}]]
+											to [[${passenger.dastination}]]</p>
+										<p class="probootstrap_text-black m-0 py-1 pline-height">
+											[[${passenger.departuredate}]] <span>&#x2022;</span>
+											[[${passenger.departuretime}]] <span>&#x2022;</span>
+											[[${passenger.departuredate}]] <span>&#x2022;</span>
+											[[${passenger.arrivaltime}]]
+										</p>
+										<p class="probootstrap_text-black m-0">
+											[[${passenger.stop}]] <span>&#x2022;</span> [[${passenger.duration}]] <span>&#x2022;</span>
+											Economy
+										</p>
+									</div>
+								</div>
+								<div>
+									<a th:id="'see-flight-btn-open-' + ${passenger.id}"
+										class="text-primary">View Flight Details</a>
+								</div>
+							</div>
+							<div th:id="'black-screen-' + ${passenger.id}" class='black-screen'>
+								<div class="modal-super">
+									<div
+										class="m-header d-flex justify-content-between align-items-center">
+										<p>Flight details</p>
+										<button th:id="'closemodalbtn-' + ${passenger.id}">
+											<svg style="width: 20px;" xmlns="http://www.w3.org/2000/svg"
+												fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+												stroke="currentColor" class="w-6 h-6">
+                        							<path stroke-linecap="round"
+													stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                   							 </svg>
+										</button>
+									</div>
+									<div class="m-flight-details">
+										<div class="mt-4">
+											<p
+												class="probootstrap_text-black probootstrap_font-18 pline_height my-1 p-0 probootstrap_font-semibold">
+												Flight to [[${passenger.dastination}]]</p>
+											<p
+												class="probootstrap_text-black probootstrap_font-14 pline_height m-0 p-0">
+												[[${passenger.stop}]] <span>&#x2022;</span> [[${passenger.duration}]]
+											</p>
+											<div class="row g-0 mt-3 mb-2">
+												<div class="col-1 text-center">
+													<p class="m-0 p-0">
+														<i class="fa-sharp fa-regular fa-circle"></i>
+													</p>
+													<hr class="probootstrap_height-30 m-0 p-0 mx-auto"
+														style="width: 2px; background-color: black;">
+													<p class="m-0 p-0">
+														<i class="fa-sharp fa-regular fa-circle"></i>
+													</p>
+												</div>
+												<div class="col-7">
+													<p
+														class="m-0 mt-1 p-0 pline_height probootstrap_text-black probootstrap_font-14">
+														[[${passenger.departuredate}]] <span>&#x2022;</span> [[${passenger.departuretime}]]
+													</p>
+													<p
+														class="m-0 p-0 pline_height probootstrap_text-black probootstrap_font-semibold">
+														[[${passenger.source}]] <span>&#x2022;</span> 
+													</p>
+													<p
+														class="m-0 mt-4 p-0 pline_height probootstrap_text-black probootstrap_font-14">
+														[[${passenger.departuredate}]] <span>&#x2022;</span> [[${passenger.arrivaltime}]]
+													</p>
+													<p
+														class="m-0 p-0 pline_height probootstrap_text-black probootstrap_font-semibold">
+														[[${passenger.dastination}]] <span>&#x2022;</span> 
+													</p>
+												</div>
+												<div class="col-4">
+													<div class="d-flex">
+														<img th:src="@{'../img/'+${passenger.fimg}}"
+															style="width: 30px; height: 30px" alt="">
+														<div class="ml-1">
+															<p
+																class="m-0 p-0 probootstrap_text-black probootstrap_font-14 pline_height">[[${passenger.fname}]]
+															</p>
+															<p
+																class="m-0 p-0 probootstrap_text-black probootstrap_font-14 pline_height">
+																69E86 <span>&#x2022;</span> Economy
+															</p>
+															<p
+																class="m-0 p-0 probootstrap_text-black probootstrap_font-14 pline_height">Flight
+																[[${passenger.duration}]]</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div
+							class="border border-2 border-primary probootstrap_rounded-10 mt-1 px-3 py-2">
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="d-flex">
+									<div>
+										<img
+											th:src="@{'../img/'+${passenger.fimg}}"
+											width="80" height="80" alt="">
+									</div>
+									<div>
+										<p
+											class="pline-height m-0 py-1 font-weight-bold probootstrap_text-black">[[${passenger.dastination}]]
+											to [[${passenger.source}]]</p>
+										<p class="probootstrap_text-black m-0 py-1 pline-height">
+											[[${passenger.returndate}]] <span>&#x2022;</span>
+											[[${passenger.rdeparturetime}]] <span>&#x2022;</span>
+											[[${passenger.returndate}]] <span>&#x2022;</span>
+											[[${passenger.rarrivaltime}]]
+										</p>
+										<p class="probootstrap_text-black m-0">
+											[[${passenger.stop}]] <span>&#x2022;</span> [[${passenger.rduration}]] <span>&#x2022;</span>
+											Economy
+										</p>
+									</div>
+								</div>
+								<div>
+									<a th:id="'see-flight-btn-open2-' + ${passenger.id}"
+										class="text-primary">View Flight Details</a>
+								</div>
+								<!-- -' + ${passenger.id} -->
+							</div>
+
+							<div
+								th:id="'black-screen2-' + ${passenger.id}" class='black-screen'>
+								<div class="modal-super">
+									<div
+										class="m-header d-flex justify-content-between align-items-center">
+										<p>Flight details</p>
+										<button type="button" th:id="'closemodalbtn2-' + ${passenger.id}">
+											<svg style="width: 20px;" xmlns="http://www.w3.org/2000/svg"
+												fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+												stroke="currentColor" class="w-6 h-6">
+                        							<path stroke-linecap="round"
+													stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                   							 </svg>
+										</button>
+									</div>
+									<div class="m-flight-details">
+										<div class="mt-4">
+											<p
+												class="probootstrap_text-black probootstrap_font-18 pline_height my-1 p-0 probootstrap_font-semibold">
+												Flight to [[${passenger.source}]]</p>
+											<p
+												class="probootstrap_text-black probootstrap_font-14 pline_height m-0 p-0">
+												[[${passenger.stop}]] <span>&#x2022;</span> [[${passenger.rduration}]]
+											</p>
+											<div class="row g-0 mt-3 mb-2">
+												<div class="col-1 text-center">
+													<p class="m-0 p-0">
+														<i class="fa-sharp fa-regular fa-circle"></i>
+													</p>
+													<hr class="probootstrap_height-30 m-0 p-0 mx-auto"
+														style="width: 2px; background-color: black;">
+													<p class="m-0 p-0">
+														<i class="fa-sharp fa-regular fa-circle"></i>
+													</p>
+												</div>
+												<div class="col-7">
+													<p
+														class="m-0 mt-1 p-0 pline_height probootstrap_text-black probootstrap_font-14">
+														[[${passenger.returndate}]] <span>&#x2022;</span> [[${passenger.rdeparturetime}]]
+													</p>
+													<p
+														class="m-0 p-0 pline_height probootstrap_text-black probootstrap_font-semibold">
+														[[${passenger.dastination}]] <span>&#x2022;</span> 
+													</p>
+													<p
+														class="m-0 mt-4 p-0 pline_height probootstrap_text-black probootstrap_font-14">
+														[[${passenger.returndate}]] <span>&#x2022;</span> [[${passenger.rarrivaltime}]]
+													</p>
+													<p
+														class="m-0 p-0 pline_height probootstrap_text-black probootstrap_font-semibold">
+														[[${passenger.source}]] <span>&#x2022;</span> 
+													</p>
+												</div>
+												<div class="col-4">
+													<div class="d-flex">
+														<img th:src="@{'../img/'+${passenger.fimg}}"
+															style="width: 30px; height: 30px" alt="">
+														<div class="ml-1">
+															<p
+																class="m-0 p-0 probootstrap_text-black probootstrap_font-14 pline_height">[[${passenger.fname}]]
+															</p>
+															<p
+																class="m-0 p-0 probootstrap_text-black probootstrap_font-14 pline_height">
+																69E86 <span>&#x2022;</span> Economy
+															</p>
+															<p
+																class="m-0 p-0 probootstrap_text-black probootstrap_font-14 pline_height">Flight
+																[[${passenger.rduration}]]</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="border border-2 border-primary probootstrap_rounded-10 my-3 px-3 py-2" >
+                        <p class="probootstrap_text-black probootstrap_font-22 font-weight-bold">Contact Details</p>
+                        <p class="probootstrap_text-black pline-height m-0 p-0">+91 [[${passengerdetais.number}]]</p>
+                        <p class="probootstrap_text-black pline-height m-0 p-0 pb-2">[[${passengerdetais.email}]]</p>
+                    </div>
+                    <div class="border border-2 border-primary probootstrap_rounded-10 my-3 px-3 py-2">
+                        <p class="probootstrap_text-black probootstrap_font-22 font-weight-bold">Traveler Details</p>
+                        <div class="d-flex">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="" style="width:30px">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                </svg>
+                            </div>
+                            <div class="px-3">
+                                <p class="probootstrap_text-black pline-height m-0 p-0 py-1">[[${passengerdetais.fname}]] [[${passengerdetais.lname}]]</p>
+                                <p class="probootstrap_text-black pline-height m-0 p-0 py-1">Adult <span>&#x2022;</span>
+                                    [[${passengerdetais.gender}]]</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-2 border-primary probootstrap_rounded-10 my-3 px-3 py-2">
+                        <p
+                            class="probootstrap_text-black probootstrap_font-22 font-weight-bold pline-height m-0 p-0 pb-1 mt-2">
+                            Included baggage</p>
+                        <p class="probootstrap_text-black pline-height m-0 p-0">The total baggage included in the price
+                        </p>
+                        <div class="d-flex pt-3">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="" style="width:30px">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                </svg>
+                            </div>
+                            <div class="px-3">
+                                <p class="probootstrap_text-black pline-height m-0 p-0 py-1">D husain ghgha</p>
+                                <p class="probootstrap_text-black pline-height m-0 p-0 py-1">Adult <span>&#x2022;</span>
+                                    Male</p>
+                            </div>
+                        </div>
+                        <div class="d-flex pt-3">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="" style="width:30px">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                </svg>
+                            </div>
+                            <div class="px-3">
+                                <p class="probootstrap_text-black pline-height m-0 p-0 py-1">D husain ghgha</p>
+                                <p class="probootstrap_text-black pline-height m-0 p-0 py-1">Adult <span>&#x2022;</span>
+                                    Male</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex w-100 justify-content-end mt-4">
+                        <button id="rzp-button1" class="btn btn-primary">Pay now</button>
+                    </div>
+                </div>
+                
+                <div class="col-4 p-0 m-0">
+                    <div>
+                        <p class="d-flex w-100 justify-content-between m-0 p-0"><span
+                                class="probootstrap_text-black probootstrap_font-bold">Ticket (1 adult)</span><span
+                                class="probootstrap_text-black probootstrap_font-bold">INR[[${passenger.price}]]</span></p>
+                        <p class="d-flex w-100 justify-content-between m-0 p-0"><span
+                                class="probootstrap_text-black probootstrap_font-regular">Flight fare</span><span
+                                class="probootstrap_text-black probootstrap_font-regular">INR6,792.55</span></p>
+                        <p class="d-flex w-100 justify-content-between m-0 p-0"><span
+                                class="probootstrap_text-black probootstrap_font-regular">Taxes and fees</span><span
+                                class="probootstrap_text-black probootstrap_font-regular">INR1,492.55</span></p>
+                        <p class="d-flex w-100 justify-content-between m-0 p-0 pline-height mt-2"><span
+                                class="probootstrap_text-black probootstrap_font-bold probootstrap_font-20">Total</span><span
+                                class="probootstrap_text-black probootstrap_font-bold probootstrap_font-22">INR[[${passenger.price}]]</span>
+                        </p>
+                        <p class="d-flex m-0 p-0 probootstrap_text-black pline-height">Includes taxes and charges</p>
+                    </div>
+                    <div class="probootstrap_border-1 p-2 probootstrap_rounded-10 mt-4">
+                        <p class="pline-height m-0 p-0 text-danger font-weight-bold py-1">Give Feedback</p>
+                        <p class="pline-height m-0 p-0 text-dark">Tell us how we're doing and what could be better</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    
+    
+
+    <footer class="probootstrap_section probootstrap-border-top">
+        <div class="container">
+            <div class="row pt-5">
+                <div class="col-md-12 text-center">
+                    <p class="probootstrap_font-14">&copy; 2017. All Rights Reserved. <br> Designed &amp; Developed by
+                        <a href="https://probootstrap.com/" target="_blank">ProBootstrap</a><small> (Don't remove credit
+                            link on this
+                            footer. See <a href="https://probootstrap.com/license/">license</a>)</small>
+                    </p>
+                    <p class="probootstrap_font-14">Demo Images: <a href="https://unsplash.com/"
+                            target="_blank">Unsplash</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	<script type="text/javascript" >
+	var options = {
+		    "key": "rzp_test_BFuqGW7IZkVybQ", // Enter the Key ID generated from the Dashboard
+		    "amount":"[[${passenger.price}]]"*100, 
+			 // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+		    "currency": "INR",
+		    "name": "Airline",
+		    "description": "Test Transaction",
+		    "image": "images/icons/logo-01.png",
+		   // "order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+		     "handler": function (response){
+		    	 window.location.href= "/ticket",
+		    	 swal("Airline","Payment Successfully","success"
+		    	 );
+		    	}, 
+		   //"callback_url": "/",
+		    "prefill": {
+		        "name": "",
+		        "email": "",
+		        "contact": ""
+		    },
+		    "notes": {
+		        "address": ""
+		    },
+		    "theme": {
+		        "color": "#00ca4c"
+		    }
+		};
+		var rzp1 = new Razorpay(options);
+		document.getElementById('rzp-button1').onclick = function(e){
+		    rzp1.open();
+		    e.preventDefault();
+		}</script>
+
+    <script src="assets/js/jquery.min.js"></script>
+
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/jquery.easing.1.3.js"></script>
+
+    <script src="assets/js/select2.min.js"></script>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#black-screen').hide();
+            $('#black-screen2').hide();
+            $('#closemodalbtn').click(function () {
+                $('#black-screen').fadeOut();
+            });
+            $('#view-flight-detail-going').click(function () {
+                $('#black-screen').fadeIn();
+            });
+            $('#closemodalbtn2').click(function () {
+                $('#black-screen2').fadeOut();
+            });
+            $('#view-flight-detail-coming').click(function () {
+                $('#black-screen2').fadeIn();
+            });
+        });
+    </script>
+    <script>
+    $(document).ready(function () {
+    	$('#black-screen-[[${passenger.id}]]').hide();
+    	$('#closemodalbtn-[[${passenger.id}]]').click(function(){
+            $('#black-screen-[[${passenger.id}]]').fadeOut();
+        }); 
+        $('#see-flight-btn-open-[[${passenger.id}]]').click(function(){
+            $('#black-screen-[[${passenger.id}]]').fadeIn();
+        });
+    });
+    </script>
+    <script>
+    $(document).ready(function () {
+    	$('#black-screen2-[[${passenger.id}]]').hide();
+    	$('#closemodalbtn2-[[${passenger.id}]]').click(function(){
+            $('#black-screen2-[[${passenger.id}]]').fadeOut();
+        }); 
+        $('#see-flight-btn-open2-[[${passenger.id}]]').click(function(){
+            $('#black-screen2-[[${passenger.id}]]').fadeIn();
+        });
+    });
+    </script>
+</body>
+
+</html>

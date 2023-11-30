@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- 
+    More Templates Visit ==> ProBootstrap.com
+    Free Template by ProBootstrap.com under the License Creative Commons 3.0 ==> (probootstrap.com/license)
+
+    IMPORTANT: You can do whatever you want with this template but you need to keep the footer link back to ProBootstrap.com
+    -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Airline &mdash;</title>
+    <meta name="description" content="Free Bootstrap 4 Theme by ProBootstrap.com">
+    <meta name="keywords"
+        content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+
+    <link rel="stylesheet" href="assets/fonts/flaticon/font/flaticon.css">
+
+    <link rel="stylesheet" href="assets/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="assets/css/select2.css">
+
+
+    <link rel="stylesheet" href="assets/css/helpers.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">Airline</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu"
+                aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <span><i class="ion-navicon"></i></span>
+            </button>
+            <div class="collapse navbar-collapse" id="probootstrap-menu">
+                <ul th:if="${session.login==null}" class="navbar-nav ml-auto">
+            <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="services">Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact">Contact</a></li>
+			<li  class="nav-item"><a class="nav-link" href="login"><i class="fa-solid fa-user"></i></a></li>
+          </ul>
+          
+          <ul th:if="${session.login}" class="navbar-nav ml-auto">
+            <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="services">Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact">Contact</a></li>
+           
+			<li  class="nav-item"><a class="nav-link" href="/user-logout">logout</a></li>
+          </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END nav -->
+
+
+    <section class="probootstrap-cover overflow-hidden relative"
+        style="background-image: url('assets/images/bg_1.jpg');" data-stellar-background-ratio="0.5" id="section-home">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md">
+                    <h2 class="heading mb-2 display-4 font-light probootstrap-animate">Explore The World With Ease</h2>
+                    <p class="lead mb-5 probootstrap-animate">
+
+                </div>
+                <div class="col-md probootstrap-animate">
+            <form th:action="@{/flights}" method="get" class="probootstrap-form needs-validation" novalidate >
+              <div class="form-group">
+					<span id='err' class='text-danger'></span>
+                <div class="row mb-3">
+                	
+                  <div class="col-md">
+                    <div class="form-group">
+                      <label for="validationCustom04">From</label>
+					  <div class="probootstrap_select-wrap" >
+                      
+                        <select name="source" onchange="checksource()" class="js-example-basic-single js-states form-control" id="source" style="width: 100%;">
+                             <option selected disabled th:value="${source}">Choose city...</option>
+                             <option th:each="c: ${cities}">[[${c.name}]]</option>
+                        </select>
+                        <span id='sourceerr' class='text-danger'></span>
+                     
+					</div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md">
+                    <div class="form-group">
+                      <label for="validationCustom04">To</label>
+                      <div class="probootstrap_select-wrap" >
+                       
+                        <select name="dastination" onchange="checkdastination()" class="js-example-basic-single js-states form-control" id="dastination" style="width: 100%;">
+                          <option selected disabled th:value="${dastination}">Choose city...</option>
+                          <option  th:each="c: ${cities}">[[${c.name}]]</option>
+                        </select>
+                        <span id='dastinationerr' class='text-danger'></span>
+                     
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                <!-- END row -->
+                <div class="row mb-5">
+                  <div class="col-md">
+                    <div class="form-group">
+                      <label for="probootstrap-date-departure">Departure</label>
+                      <div class="probootstrap-date-wrap">
+                        
+                        <input type="date" onchange="checkdeparturedate()" th:name="departuredate" id="txtDate" th:value="${departuredate}" required="required"  class="form-control" placeholder="1/30/2023">
+                       <span id='departuredateerr' class='text-danger'></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md" id="onewaydate">
+                    <div class="form-group">
+                      <label for="probootstrap-date-arrival">Arrival</label>
+                      <div class="probootstrap-date-wrap">
+                        
+                        <input type="date" onchange="checkreturndate()" th:name="returndate" th:value="${returndate}" id="onewayinput" required="required"  class="form-control" placeholder="2/8/2023">
+                      	<span id='returndateerr' class='text-danger'></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+                <!-- END row -->
+                <div class="row">
+                 <div class="col-md">
+                    <label for="round" class="mr-5"><input type="radio" checked="checked" id="round" name="direction">  Round</label>
+                    <label for="oneway"><input type="radio" id="oneway" name="direction"> Oneway</label>
+                  </div>
+                  <div class="col-md">
+                    <input type="submit" onclick='return checkvalidate()' value="Search" class="btn btn-primary btn-block">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section>
+        <div class="flights-main container-fluid">
+            <div class="row py-5">
+              <!--  <div class="col-sm-4 flights-left">
+                    <div class="my-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h1>Filters</h1>
+                            <button>Reset all</button>
+                        </div>
+                        <p>showing 1331 results</p>
+                    </div>
+                    <div class="my-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h1>Stops</h1>
+                            <button><svg style="width: 20px;" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center my-2">
+                            <div class="d-flex">
+                                <input type="radio" name="something" id="" class="mr-2">
+                                <div>
+                                    <p class="p-0 m-0">Any</p>
+                                    <p class="p-0 m-0">From INR96,236.75</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <p>2535</p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center my-2">
+                            <div class="d-flex">
+                                <input type="radio" name="something" id="" class="mr-2">
+                                <div>
+                                    <p class="p-0 m-0">Any</p>
+                                    <p class="p-0 m-0">From INR96,236.75</p>
+                                </div>
+                            </div>
+                            <div class="" style="height:100%">
+                                <p>2535</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h1>Duration</h1>
+                        </div>
+                        <div class="duration-filter">
+                            <p class="heading mt-2 mb-1">Maximum travel time</p>
+                            <p class="sub-heading">55 hours</p>
+                            <input type="range" class="form-control m-0" name="" id="">
+                        </div>
+                    </div>
+                    <div class="my-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h1>Flight times</h1>
+                        </div>
+                        <div class="flight-time d-flex my-2">
+                            <button id="outbound-flight-btn" class="active">Outbound flight</button>
+                            <button id="return-flight-btn" class="">Return flight</button>
+                        </div>
+                        <div class="" id="outbound-flight-div">
+                            <div>
+                                <h1 class="py-2">Departs from Schiphoi Airport</h1>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h1 class="py-2">Departs from Schiphoi Airport</h1>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h1 class="py-2">Departs from Schiphoi Airport</h1>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="" id="return-flight-div">
+                            <div>
+                                <h1 class="py-2">Departs from Schiphoi Airport</h1>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h1 class="py-2">Departs from Schiphoi Airport</h1>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h1 class="py-2">Departs from Schiphoi Airport</h1>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="" style="color:black">
+                                        <input type="checkbox" name="" id="">
+                                        00:00 - 05:59
+                                    </div>
+                                    <div style="color:black">
+                                        1234
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  -->
+
+
+				<div class="col-sm-12 flights-right">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 p-0 mb-4">
+                                <div class="d-flex button-holder">
+                                    <button id="best-btn" class="btn-awesome active">Best</button>
+                                    <button id="cheapest-btn" class="btn-awesome">Cheapest</button>
+                                    <button id="fastest-btn" class="btn-awesome">Fastest</button>
+                                </div>
+                            </div>
+                            <div class="col-12" id="best-flight-div" th:each="f: ${flight}" th:field="${f}" >
+                                <div class="row single-items mb-4">
+                                    <div class="col-8 left">
+                                        <div class="single-card py-2">
+                                            <div class="d-flex align-items-center">
+                                                <div class="card-image">
+                                                    <img th:src="@{'../img/'+${f.fimg}}" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="card-middle pl-4 d-flex flex-column justify-content-center">
+                                                    <p class="time-heading p-0 m-0">
+                                                       [[${f.departuretime}]]
+                                                    </p>
+                                                    <p class="p-0 m-0">
+                                                       [[${f.source}]] &#x2022; [[${f.departuredate}]] 
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    class="super-middle d-flex flex-column justify-content-center align-items-center">
+                                                    <p class="p-0 m-0">[[${f.duration}]]</p>
+                                                    <hr class="p-0 m-0">
+                                                    <p class="p-0 m-0">[[${f.stop}]]</p>
+                                                </div>
+                                                <div class="card-middle d-flex flex-column justify-content-center">
+                                                    <p class="time-heading p-0 m-0 d-flex justify-content-end">
+                                                       [[${f.arrivaltime}]]
+                                                    </p>
+                                                    <p class="p-0 d-flex justify-content-end">
+                                                       [[${f.dastination}]] &#x2022; [[${f.departuredate}]] 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p class="flights-details py-2">[[${f.fname}]]</p>
+                                        </div>
+                                        <div class="single-card py-2">
+                                            <div class="d-flex align-items-center">
+                                                <div class="card-image">
+                                                    <img th:src="@{'../img/'+${f.rimg}}" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="card-middle pl-4 d-flex flex-column justify-content-center">
+                                                    <p class="time-heading p-0 m-0">
+                                                       [[${f.rdeparturetime}]]
+                                                    </p>
+                                                    <p class="p-0 m-0">
+                                                        [[${f.dastination}]] &#x2022; [[${f.returndate}]]
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    class="super-middle d-flex flex-column justify-content-center align-items-center">
+                                                    <p class="p-0 m-0">[[${f.rduration}]]</p>
+                                                    <hr class="p-0 mx-0 my-1">
+                                                    <p class="p-0 m-0">[[${f.stop}]]</p>
+                                                </div>
+                                                <div class="card-middle d-flex flex-column justify-content-center">
+                                                    <p class="time-heading p-0 m-0 d-flex justify-content-end">
+                                                        [[${f.rarrivaltime}]]
+                                                    </p>
+                                                    <p class="p-0 d-flex justify-content-end">
+                                                       [[${f.source}]] &#x2022; [[${f.returndate}]] 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p class="flights-details py-2">[[${f.rname}]]</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 right py-2">
+                                        <div class="icons d-flex justify-content-end align-items-center py-2">
+                                            <i class="fa-solid fa-suitcase-rolling"></i>
+                                            <i class="fa-sharp fa-solid fa-person-walking-luggage"></i>
+                                        </div>
+                                        <div class="">
+                                            <p class="right-bag-detail">Included:personal item, cabin bag,checked bag
+                                            </p>
+                                        </div>
+                                        <div class="py-2">
+                                            <div class="price-heading m-0 p-0">
+                                                INR[[${f.price}]]
+                                            </div>
+                                            <div class="unwanted-details">
+                                                Total price for all travellers
+                                            </div>
+                                        </div>
+                                        <div class="py-2">
+                                            <button  class="see-flight-button" th:id="'see-flight-btn-open-' + ${f.id}">
+                                                See flight
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                 <!-- Screen Start -->
+       <div class='amazing-black-screen' th:id="'black-screen-' + ${f.id}">
+        <div class="modal-super">
+            <div class="m-header d-flex justify-content-between align-items-center">
+                <p>Your flight to [[${f.dastination}]] city</p>
+                <button th:id="'closemodalbtn-' + ${f.id}"><svg style="width: 20px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="m-subheading">
+                <p class="probootstrap_text-black probootstrap_bg-grey probootstrap_rounded-5 px-2 my-2" style="width:fit-content">Total CO2 emission: [[${f.luggage}]].5kg</p>
+            </div>
+            <div class="m-flight-details">
+                <div class="mt-4">
+                    <p class="probootstrap_text-black probootstrap_font-18 pline_height my-1 p-0 probootstrap_font-semibold">Flight to [[${f.dastination}]] City</p>
+                    <p class="probootstrap_text-black probootstrap_font-14 pline_height m-0 p-0">[[${f.stop}]] <span>&#x2022;</span> [[${f.duration}]]</p>
+                    <div class="row g-0 mt-3 mb-2">
+                        <div class="col-1 text-center">
+                            <p class="m-0 p-0"><i class="fa-sharp fa-regular fa-circle"></i></p>
+                            <hr class="probootstrap_height-60 m-0 p-0 mx-auto" style="width:2px;background-color: black;">
+                            <p class="m-0 p-0"><i class="fa-sharp fa-regular fa-circle"></i></p>
+                        </div>
+                        <div class="col-7">
+                            <p class="m-0 mt-1 p-0 pline_height probootstrap_text-black probootstrap_font-14">[[${f.day}]] [[${f.departuredate}]] <span>&#x2022;</span> [[${f.departuretime}]]</p>
+                            <p class="m-0 p-0 pline_height probootstrap_text-black probootstrap_font-semibold">[[${f.source}]] <span>&#x2022;</span> [[${f.source}]]</p>
+                            <p class="m-0 mt-4 p-0 pline_height probootstrap_text-black probootstrap_font-14">[[${f.day}]] [[${f.departuredate}]] <span>&#x2022;</span> [[${f.arrivaltime}]]</p>
+                            <p class="m-0 p-0 pline_height probootstrap_text-black probootstrap_font-semibold">[[${f.dastination}]] <span>&#x2022;</span> [[${f.dastination}]]</p>
+                        </div>
+                        <div class="col-4">
+                            <div class="d-flex">
+                                <img th:src="@{'../img/'+${f.fimg}}" style="width:30px;height:30px" alt="">
+                                <div class="ml-1">
+                                    <p class="m-0 p-0 probootstrap_text-black probootstrap_font-14 pline_height">[[${f.fname}]]</p>
+                                    <p class="m-0 p-0 probootstrap_text-black probootstrap_font-14 pline_height">69E86 <span>&#x2022;</span> Economy</p>
+                                    <p class="m-0 p-0 probootstrap_text-black probootstrap_font-14 pline_height">Flight time [[${f.duration}]]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p class="probootstrap_text-black probootstrap_font-18 pline_height my-1 p-0 probootstrap_font-semibold">Flight to [[${f.source}]] City</p>
+                    <p class="probootstrap_text-black probootstrap_font-14 pline_height m-0 p-0">[[${f.stop}]] <span>&#x2022;</span> [[${f.rduration}]]</p>
+                    <div class="row g-0 mt-3 mb-2">
+                        <div class="col-1 text-center">
+                            <p class="m-0 p-0"><i class="fa-sharp fa-regular fa-circle"></i></p>
+                            <hr class="probootstrap_height-60 m-0 p-0 mx-auto" style="width:2px;background-color: black;">
+                            <p class="m-0 p-0"><i class="fa-sharp fa-regular fa-circle"></i></p>
+                        </div>
+                        <div class="col-7">
+                            <p class="m-0 mt-1 p-0 pline_height probootstrap_text-black probootstrap_font-14">[[${f.day}]] [[${f.returndate}]]<span>&#x2022;</span> [[${f.rdeparturetime}]]</p>
+                            <p class="m-0 p-0 pline_height probootstrap_text-black probootstrap_font-semibold">[[${f.dastination}]] <span>&#x2022;</span> [[${f.dastination}]]</p>
+                            <p class="m-0 mt-4 p-0 pline_height probootstrap_text-black probootstrap_font-14">[[${f.day}]] [[${f.returndate}]]<span>&#x2022;</span> [[${f.rarrivaltime}]]</p>
+                            <p class="m-0 p-0 pline_height probootstrap_text-black probootstrap_font-semibold">[[${f.source}]] <span>&#x2022;</span> [[${f.source}]]</p>
+                        </div>
+                        <div class="col-4">
+                            <div class="d-flex">
+                                <img th:src="@{'../img/'+${f.rimg}}" style="width:30px;height:30px" alt="">
+                                <div class="ml-1">
+                                    <p class="m-0 p-0 probootstrap_text-black probootstrap_font-14 pline_height">[[${f.rname}]]</p>
+                                    <p class="m-0 p-0 probootstrap_text-black probootstrap_font-14 pline_height">69E86 <span>&#x2022;</span> Economy</p>
+                                    <p class="m-0 p-0 probootstrap_text-black probootstrap_font-14 pline_height">Flight time [[${f.rduration}]]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-bag-details px-4">
+                <div class="row g-0 border-top-2 border-dark border-bottom-2 border-left-0 border-right-0 border my-4 py-3">
+                    <div class="col-4">
+                        <p class="m-0 p-0 probootstrap_text-black pline_height probootstrap_font-semibold">Included baggage</p>
+                        <p class="m-0 my-1 p-0 probootstrap_text-black probootstrap_font-14 pline_height">Total baggage included in price.</p>
+                    </div>
+                    <div class="col-8 border border-dark border-bottom-0 border-right-0 border-top-0">
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-suitcase-rolling probootstrap_font-25 probootstrap_text-black"></i>
+                            <div class="px-3">
+                                <p class="m-0 my-1 p-0 probootstrap_text-black probootstrap_font-14 probootstrap_font-normal pline_height">1 cabin bag</p>
+                                <p class="m-0 my-1 p-0 probootstrap_text-black probootstrap_font-14 probootstrap_font-normal pline_height">Max weight 7 kg</p>
+                            </div>
+                            <div class="ml-auto probootstrap_font-semibold text-success">
+                                included
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-suitcase-rolling probootstrap_font-25 probootstrap_text-black"></i>
+                            <div class="px-3">
+                                <p class="m-0 mb-1 p-0 probootstrap_text-black probootstrap_font-14 probootstrap_font-normal pline_height">1 cabin bag</p>
+                                <p class="m-0 mb-1 p-0 probootstrap_text-black probootstrap_font-14 probootstrap_font-normal pline_height">Max weight 8.5 kg</p>
+                            </div>
+                            <div class="ml-auto probootstrap_font-semibold text-success">
+                                included
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-footer px-2">
+                <div class="d-flex justify-content-between align-items-center pb-2 w-100">
+                    <div>
+                        <p class="m-0 p-0 pline_height probootstrap_font-bold probootstrap_text-black probootstrap_font-25">INR[[${f.price}]]</p>
+                        <p class="m-0 p-0 pline_height probootstrap_text-black probootstrap_font-14">Total price for all traveller</p>
+                    </div>
+                    <div>
+                        <a th:href="@{/travels(id=${f.id})}" class="btn btn-primary">Select</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                            </div>
+
+							<div th:unless="${flight.size() > 0}">
+								<h3 align="center">No flight available!</h3>
+
+								<div class="col-12" id="cheapest-flight-div">
+									<div class="row single-items mb-4">
+										<div class="col-8 left">
+											<div class="single-card py-2">
+												<div class="d-flex align-items-center">
+													<div class="card-image">
+														<img src="https://unsplash.it/100/100" class="img-fluid"
+															alt="">
+													</div>
+													<div
+														class="card-middle pl-4 d-flex flex-column justify-content-center">
+														<p class="time-heading p-0 m-0">01:00</p>
+														<p class="p-0 m-0">AMS &#x2022; 14 Mar</p>
+													</div>
+													<div
+														class="super-middle d-flex flex-column justify-content-center align-items-center">
+														<p class="p-0 m-0">22h 15m</p>
+														<hr class="p-0 m-0">
+														<p class="p-0 m-0">2 stops</p>
+													</div>
+													<div
+														class="card-middle d-flex flex-column justify-content-center">
+														<p class="time-heading p-0 m-0 d-flex justify-content-end">
+															12:00</p>
+														<p class="p-0 d-flex justify-content-end">GOL &#x2022;
+															15 Mar</p>
+													</div>
+												</div>
+												<p class="flights-details py-2  ">Turkish Airline, Air
+													India</p>
+											</div>
+											<div class="single-card py-2">
+												<div class="d-flex align-items-center">
+													<div class="card-image">
+														<img src="https://unsplash.it/100/100" class="img-fluid"
+															alt="">
+													</div>
+													<div
+														class="card-middle pl-4 d-flex flex-column justify-content-center">
+														<p class="time-heading p-0 m-0">12:00</p>
+														<p class="p-0 m-0">AMS &#x2022; 14 Mar</p>
+													</div>
+													<div
+														class="super-middle d-flex flex-column justify-content-center align-items-center">
+														<p class="p-0 m-0">22h 15m</p>
+														<hr class="p-0 mx-0 my-1">
+														<p class="p-0 m-0">2 stops</p>
+													</div>
+													<div
+														class="card-middle d-flex flex-column justify-content-center">
+														<p class="time-heading p-0 m-0 d-flex justify-content-end">
+															12:00</p>
+														<p class="p-0 d-flex justify-content-end">GOL &#x2022;
+															15 Mar</p>
+													</div>
+												</div>
+												<p class="flights-details py-2">Turkish Airline, Air
+													India</p>
+											</div>
+										</div>
+										<div class="col-4 right py-2">
+											<div
+												class="icons d-flex justify-content-end align-items-center py-2">
+												<i class="fa-solid fa-suitcase-rolling"></i> <i
+													class="fa-sharp fa-solid fa-person-walking-luggage"></i>
+											</div>
+											<div class="">
+												<p class="right-bag-detail">Included:personal item,
+													cabin bag,checked bag</p>
+											</div>
+											<div class="py-2">
+												<div class="price-heading m-0 p-0">INR68,400</div>
+												<div class="unwanted-details">Total price for all
+													travellers</div>
+											</div>
+											<div class="py-2">
+												<button class="see-flight-button">See flight</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-12" id="fastest-flight-div">
+									<div class="row single-items mb-4">
+										<div class="col-8 left">
+											<div class="single-card py-2">
+												<div class="d-flex align-items-center">
+													<div class="card-image">
+														<img src="https://unsplash.it/100/100" class="img-fluid"
+															alt="">
+													</div>
+													<div
+														class="card-middle pl-4 d-flex flex-column justify-content-center">
+														<p class="time-heading p-0 m-0">12:00</p>
+														<p class="p-0 m-0">AMS &#x2022; 14 Mar</p>
+													</div>
+													<div
+														class="super-middle d-flex flex-column justify-content-center align-items-center">
+														<p class="p-0 m-0">22h 15m</p>
+														<hr class="p-0 m-0">
+														<p class="p-0 m-0">2 stops</p>
+													</div>
+													<div
+														class="card-middle d-flex flex-column justify-content-center">
+														<p class="time-heading p-0 m-0 d-flex justify-content-end">
+															12:00</p>
+														<p class="p-0 d-flex justify-content-end">GOL &#x2022;
+															15 Mar</p>
+													</div>
+												</div>
+												<p class="flights-details py-2  ">Turkish Airline, Air
+													India</p>
+											</div>
+											<div class="single-card py-2">
+												<div class="d-flex align-items-center">
+													<div class="card-image">
+														<img src="https://unsplash.it/100/100" class="img-fluid"
+															alt="">
+													</div>
+													<div
+														class="card-middle pl-4 d-flex flex-column justify-content-center">
+														<p class="time-heading p-0 m-0">12:00</p>
+														<p class="p-0 m-0">AMS &#x2022; 14 Mar</p>
+													</div>
+													<div
+														class="super-middle d-flex flex-column justify-content-center align-items-center">
+														<p class="p-0 m-0">22h 15m</p>
+														<hr class="p-0 mx-0 my-1">
+														<p class="p-0 m-0">2 stops</p>
+													</div>
+													<div
+														class="card-middle d-flex flex-column justify-content-center">
+														<p class="time-heading p-0 m-0 d-flex justify-content-end">
+															12:00</p>
+														<p class="p-0 d-flex justify-content-end">GOL &#x2022;
+															15 Mar</p>
+													</div>
+												</div>
+												<p class="flights-details py-2">Turkish Airline, Air
+													India</p>
+											</div>
+										</div>
+										<div class="col-4 right py-2">
+											<div
+												class="icons d-flex justify-content-end align-items-center py-2">
+												<i class="fa-solid fa-suitcase-rolling"></i> <i
+													class="fa-sharp fa-solid fa-person-walking-luggage"></i>
+											</div>
+											<div class="">
+												<p class="right-bag-detail">Included:personal item,
+													cabin bag,checked bag</p>
+											</div>
+											<div class="py-2">
+												<div class="price-heading m-0 p-0">INR68,400</div>
+												<div class="unwanted-details">Total price for all
+													travellers</div>
+											</div>
+											<div class="py-2">
+												<button class="see-flight-button">See flight</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <footer class="probootstrap_section probootstrap-border-top">
+        <div class="container">
+            <div class="row pt-5">
+                <div class="col-md-12 text-center">
+                    <p class="probootstrap_font-14">&copy; 2017. All Rights Reserved. <br> Designed &amp; Developed by
+                        <a href="https://probootstrap.com/" target="_blank">ProBootstrap</a><small> (Don't remove credit
+                            link on this footer. See <a href="https://probootstrap.com/license/">license</a>)</small>
+                    </p>
+                    <p class="probootstrap_font-14">Demo Images: <a href="https://unsplash.com/"
+                            target="_blank">Unsplash</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/jquery.min.js"></script>
+
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+
+    <script src="assets/js/bootstrap-datepicker.js"></script>
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/jquery.easing.1.3.js"></script>
+
+    <script src="assets/js/select2.min.js"></script>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#cheapest-flight-div').hide();
+            $('#fastest-flight-div').hide();
+            $('#return-flight-div').hide();
+            $('#outbound-flight-btn').click(function () {
+                $(this).addClass('active');
+                $('#return-flight-btn').removeClass('active');
+                $('#outbound-flight-div').show();
+                $('#return-flight-div').hide();
+            });
+            $('#return-flight-btn').click(function () {
+                $(this).addClass('active');
+                $('#outbound-flight-btn').removeClass('active');
+                $('#outbound-flight-div').hide();
+                $('#return-flight-div').show();
+            });
+            $('#best-btn').click(function () {
+                $(this).addClass('active');
+                $('#cheapest-btn').removeClass('active');
+                $('#fastest-btn').removeClass('active');
+                $('#best-flight-div').show();
+                $('#cheapest-flight-div').hide();
+                $('#fastest-flight-div').hide();
+            });
+            $('#cheapest-btn').click(function () {
+                $(this).addClass('active');
+                $('#best-btn').removeClass('active');
+                $('#fastest-btn').removeClass('active');
+                $('#cheapest-flight-div').show();
+                $('#best-flight-div').hide();
+                $('#fastest-flight-div').hide();
+            });
+            $('#fastest-btn').click(function () {
+                $(this).addClass('active');
+                $('#best-btn').removeClass('active');
+                $('#cheapest-btn').removeClass('active');
+                $('#cheapest-flight-div').hide();
+                $('#best-flight-div').hide();
+                $('#fastest-flight-div').show();
+            }); 
+        });
+    </script>
+   <script th:each="f: ${flight}">
+    $(document).ready(function () {
+    	$('#black-screen-[[${f.id}]]').hide();
+    	$('#closemodalbtn-[[${f.id}]]').click(function(){
+            $('#black-screen-[[${f.id}]]').fadeOut();
+        }); 
+        $('#see-flight-btn-open-[[${f.id}]]').click(function(){
+            $('#black-screen-[[${f.id}]]').fadeIn();
+        });
+    });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	$('#oneway').click(function(){
+    		$('#onewaydate').hide();
+    		$('#onewayinput').attr('disabled','disabled');
+    	});
+    	$('#round').click(function(){
+    		$('#onewaydate').show();
+    		$('#onewayinput').removeAttr('disabled');
+    	});
+    });
+    </script>
+           <script type="text/javascript">
+    var source = document.getElementById('source').value;
+    var dastination = document.getElementById('dastination').value;
+    var departuredate = document.getElementById('txtDate').value;
+    var returndate = document.getElementById('onewayinput').value;
+    
+    function checksource(){
+    	var sources = document.getElementById('source').value;
+    
+    	if(sources == ''){
+    		document.getElementById('sourceerr').style.display = 'block';
+    		document.getElementById('sourceerr').innerHTML = 'Please select a city.';
+    	}
+    	else{
+    		document.getElementById('sourceerr').style.display = 'none';
+    		document.getElementById('sourceerr').innerHTML = '';
+    	}
+    }
+    
+    function checkdastination(){
+    	var dastinations = document.getElementById('dastination').value;
+    
+    	if(dastinations == ''){
+    		document.getElementById('dastinationerr').style.display = 'block';
+    		document.getElementById('dastinationerr').innerHTML = 'Please select a city.';
+    	}
+    	else{
+    		document.getElementById('dastinationerr').style.display = 'none';
+    		document.getElementById('dastinationerr').innerHTML = '';
+    	}
+    }
+    
+    function checkdeparturedate(){
+    	var departuredate = document.getElementById('txtDate').value;
+    
+    	if(departuredate == ''){
+    		document.getElementById('departuredateerr').style.display = 'block';
+    		document.getElementById('departuredateerr').innerHTML = 'Please select a departure date.';
+    	}
+    	else{
+    		document.getElementById('departuredateerr').style.display = 'none';
+    		document.getElementById('departuredateerr').innerHTML = '';
+    	}
+    }
+    
+    function checkreturndate(){
+    	var returndate = document.getElementById('onewayinput').value;
+    
+    	if(returndate == ''){
+    		document.getElementById('returndateerr').style.display = 'block';
+    		document.getElementById('returndateerr').innerHTML = 'Please select a Arrival date.';
+    	}
+    	else{
+    		document.getElementById('returndateerr').style.display = 'none';
+    		document.getElementById('returndateerr').innerHTML = '';
+    	}
+    }
+    
+    function checkvalidate(){
+    	 var sources = document.getElementById('source').value;
+    	 var dastinations = document.getElementById('dastination').value;
+    	 var departuredate = document.getElementById('txtDate').value;
+    	 var returndate = document.getElementById('onewayinput').value;
+    	//$('#').is(":checked")
+    	var h = document.getElementById('onewaydate').style.display;
+    	if(h == "none"){
+    		if(sources == "" && dastinations == "" && departuredate == ""){
+            	document.getElementById('sourceerr').style.display = 'block';
+        		document.getElementById('sourceerr').innerHTML = 'Please select a city.';
+        		document.getElementById('dastinationerr').style.display = 'block';
+        		document.getElementById('dastinationerr').innerHTML = 'Please select a city.';
+        		document.getElementById('departuredateerr').style.display = 'block';
+        		document.getElementById('departuredateerr').innerHTML = 'Please select a departure date.';
+        		return false;
+        	}
+            
+            else if(sources == dastinations){
+            	document.getElementById('err').style.display = 'block';
+        		document.getElementById('err').innerHTML = 'Origin and destination can not be the same.';
+        		document.getElementById('sourceerr').style.display = 'none';
+        		document.getElementById('sourceerr').innerHTML = '';
+        		document.getElementById('dastinationerr').style.display = '';
+        		document.getElementById('dastinationerr').innerHTML = '';
+        		document.getElementById('departuredateerr').style.display = 'none';
+        		document.getElementById('departuredateerr').innerHTML = '';
+        		
+        		return false;
+            }
+            else if(dastinations==""){
+            	document.getElementById('sourceerr').style.display = 'none';
+        		document.getElementById('sourceerr').innerHTML = '';
+        		document.getElementById('dastinationerr').style.display = 'block';
+        		document.getElementById('dastinationerr').innerHTML = 'Please select a city.';
+        		document.getElementById('departuredateerr').style.display = 'none';
+        		document.getElementById('departuredateerr').innerHTML = '';
+      
+        		return false;
+            }
+            else if(departuredate == ""){
+            	document.getElementById('sourceerr').style.display = 'none';
+        		document.getElementById('sourceerr').innerHTML = '';
+        		document.getElementById('dastinationerr').style.display = 'none';
+        		document.getElementById('dastinationerr').innerHTML = '';
+        		document.getElementById('departuredateerr').style.display = 'block';
+        		document.getElementById('departuredateerr').innerHTML = 'Please select a departure date.';
+        		return false;
+            }
+    		//Origin and destination can't be the same.
+        	else{
+        		return true;	
+        	}
+    	}
+    	else{
+    		if(sources == "" && dastinations == "" && departuredate == "" && returndate == ""){
+            	document.getElementById('sourceerr').style.display = 'block';
+        		document.getElementById('sourceerr').innerHTML = 'Please select a city.';
+        		document.getElementById('dastinationerr').style.display = 'block';
+        		document.getElementById('dastinationerr').innerHTML = 'Please select a city.';
+        		document.getElementById('departuredateerr').style.display = 'block';
+        		document.getElementById('departuredateerr').innerHTML = 'Please select a departure date.';
+        		document.getElementById('returndateerr').style.display = 'block';
+        		document.getElementById('returndateerr').innerHTML = 'Please select a Arrival date.';
+        		return false;
+        	}
+            
+            else if(sources == dastinations){
+            	document.getElementById('err').style.display = 'block';
+        		document.getElementById('err').innerHTML = 'Origin and destination can not be the same.';
+        		document.getElementById('sourceerr').style.display = 'none';
+        		document.getElementById('sourceerr').innerHTML = '';
+        		document.getElementById('dastinationerr').style.display = '';
+        		document.getElementById('dastinationerr').innerHTML = '';
+        		document.getElementById('departuredateerr').style.display = 'none';
+        		document.getElementById('departuredateerr').innerHTML = '';
+        		document.getElementById('returndateerr').style.display = 'none';
+        		document.getElementById('returndateerr').innerHTML = '';
+        		return false;
+            }
+            else if(dastinations==""){
+            	document.getElementById('sourceerr').style.display = 'none';
+        		document.getElementById('sourceerr').innerHTML = '';
+        		document.getElementById('dastinationerr').style.display = 'block';
+        		document.getElementById('dastinationerr').innerHTML = 'Please select a city.';
+        		document.getElementById('departuredateerr').style.display = 'none';
+        		document.getElementById('departuredateerr').innerHTML = '';
+        		document.getElementById('returndateerr').style.display = 'none';
+        		document.getElementById('returndateerr').innerHTML = '';
+        		return false;
+            }
+            else if(departuredate == ""){
+            	document.getElementById('sourceerr').style.display = 'none';
+        		document.getElementById('sourceerr').innerHTML = '';
+        		document.getElementById('dastinationerr').style.display = 'none';
+        		document.getElementById('dastinationerr').innerHTML = '';
+        		document.getElementById('departuredateerr').style.display = 'block';
+        		document.getElementById('departuredateerr').innerHTML = 'Please select a departure date.';
+        		document.getElementById('returndateerr').style.display = 'none';
+        		document.getElementById('returndateerr').innerHTML = '';
+        		return false;
+            }
+            else if(returndate == ""){
+            	document.getElementById('sourceerr').style.display = 'none';
+        		document.getElementById('sourceerr').innerHTML = '';
+        		document.getElementById('dastinationerr').style.display = 'none';
+        		document.getElementById('dastinationerr').innerHTML = '';
+        		document.getElementById('departuredateerr').style.display = 'none';
+        		document.getElementById('departuredateerr').innerHTML = '';
+        		document.getElementById('returndateerr').style.display = 'block';
+        		document.getElementById('returndateerr').innerHTML = 'Please select a Arrival date.';
+        		return false;
+            }
+    		//Origin and destination can't be the same.
+        	else{
+        		return true;	
+        	}	
+    	}
+    	
+    }
+    </script>
+</body>
+
+</html>
